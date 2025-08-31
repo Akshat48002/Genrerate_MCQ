@@ -9,9 +9,15 @@ from langchain_community.callbacks import get_openai_callback
 from src.mcqgenerator.McqGenerator import generate_evaluate_chain
 from src.mcqgenerator.logger import logging
 
+# Load RESPONSE_JSON safely from current project directory
+current_dir = os.path.dirname(__file__)
+file_path = os.path.join(current_dir, "Response.json")
 
-with open('/workspaces/Genrerate_MCQ/Response.json','r') as file:
-    RESPONSE_JSON = json.load(file)
+if os.path.exists(file_path):
+    with open(file_path, "r") as file:
+        RESPONSE_JSON = json.load(file)
+else:
+    RESPONSE_JSON = {}  # fallback if file not found
 
 
 st.title("MCQs Creator Application with Langchain")
